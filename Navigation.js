@@ -2,6 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 
@@ -9,6 +10,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import StackScreen from "./screens/StackScreen";
 import SettingScreen from "./screens/SettingsScreen";
+import SectionsScreen from "./screens/SectionsScreen";
+import PresidentesScreen from "./screens/PresidentesScreen";
+import CapitalesScreen from "./screens/CapitalesScreen";
+import ContinentesScreen from "./screens/ContinentesScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 
 const HomeStack = createNativeStackNavigator();
@@ -18,9 +24,13 @@ const Tab = createBottomTabNavigator();
 function MyStack() {
     return (
         <HomeStack.Navigator
-            initialRouteName="HomeScreen"
+            initialRouteName="LoginScreen"
         
         >
+            <HomeStack.Screen
+                name="LoginScreen"
+                component={LoginScreen}
+            />
             <HomeStack.Screen
                 name="HomeScreen"
                 component={HomeScreen}
@@ -28,6 +38,27 @@ function MyStack() {
             <HomeStack.Screen
                 name="Stack"
                 component={StackScreen}
+            />
+            <HomeStack.Screen
+                name="PresidentesScreen"
+                component={PresidentesScreen}
+                options={{
+                    headerBackTitleVisible: false
+                }}
+            />
+            <HomeStack.Screen
+                name="CapitalesScreen"
+                component={CapitalesScreen}
+                options={{
+                    headerBackTitleVisible: false
+                }}
+            />
+            <HomeStack.Screen
+                name="ContinentesScreen"
+                component={ContinentesScreen}
+                options={{
+                    headerBackTitleVisible: false
+                }}
             />
         </HomeStack.Navigator>
     );
@@ -55,6 +86,17 @@ function MyTabs() {
                     headerShown: false
                 }}
 
+            />
+            <Tab.Screen
+                name="Sections"
+                component={SectionsScreen}
+                options={{
+                    tabBarLabel: "Sections",
+                    tabBarIcon: ({ color, size }) => (
+                        <MaterialIcons name="category" color={color} size={30} />
+                    ),
+                    headerShown: false
+                }}
             />
             <Tab.Screen
                 name="Settings"
