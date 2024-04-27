@@ -22,9 +22,9 @@ const Tab = createBottomTabNavigator();
 
 //Se crea un stack para la pantalla principal
 function MyStack() {
-    return (
+    return ( 
         <HomeStack.Navigator
-            initialRouteName="LoginScreen"
+            initialRouteName="HomeScreen"
         
         >
             <HomeStack.Screen
