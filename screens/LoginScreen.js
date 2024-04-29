@@ -2,7 +2,7 @@ import * as WebBrowser from "expo-web-browser";
 import * as React from "react";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button,StyleSheet } from 'react-native';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -25,6 +25,7 @@ export default function LoginScreen() {
       }
     } else {
       setUserInfo(user);
+      navigation.navigate('HomeScreen'); //Se redirige a la pantalla principal
     }
   }
 
@@ -52,16 +53,18 @@ export default function LoginScreen() {
       const user = await response.json();
       await AsyncStorage.setItem("@user", JSON.stringify(user));
       setUserInfo(user);
+      navigation.navigate('HomeScreen'); //Se redirige a la pantalla principal
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={styles.container}>
       {userInfo ? (
         <View>
           <Text>Welcome {userInfo.name}</Text>
+          <Button title="Sign out" onPress={handleSignOut} />
         </View>
       ) : (
         <View>
@@ -71,3 +74,11 @@ export default function LoginScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

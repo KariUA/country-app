@@ -8,13 +8,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Importing screens
 import HomeScreen from "./screens/HomeScreen";
-import StackScreen from "./screens/StackScreen";
 import SettingScreen from "./screens/SettingsScreen";
 import SectionsScreen from "./screens/SectionsScreen";
-import PresidentesScreen from "./screens/PresidentesScreen";
-import CapitalesScreen from "./screens/CapitalesScreen";
-import ContinentesScreen from "./screens/ContinentesScreen";
+import ONUScreen from "./screens/ONUScreen";
+import CapitalScreen from "./screens/CapitalScreen";
+import ContinentsScreen from "./screens/ContinentsScreen";
 import LoginScreen from "./screens/LoginScreen";
+import CountryScreen from "./screens/CountryScreen";
+import CountriesListScreen from "./screens/CountriesLisScreen";
 
 
 const HomeStack = createNativeStackNavigator();
@@ -36,26 +37,36 @@ function MyStack() {
                 component={HomeScreen}
             />
             <HomeStack.Screen
-                name="Stack"
-                component={StackScreen}
-            />
-            <HomeStack.Screen
-                name="PresidentesScreen"
-                component={PresidentesScreen}
+                name="ONUScreen"
+                component={ONUScreen}
                 options={{
                     headerBackTitleVisible: false
                 }}
             />
             <HomeStack.Screen
-                name="CapitalesScreen"
-                component={CapitalesScreen}
+                name="CapitalScreen"
+                component={CapitalScreen}
                 options={{
                     headerBackTitleVisible: false
                 }}
             />
             <HomeStack.Screen
-                name="ContinentesScreen"
-                component={ContinentesScreen}
+                name="ContinentsScreen"
+                component={ContinentsScreen}
+                options={{
+                    headerBackTitleVisible: false
+                }}
+            />
+            <HomeStack.Screen
+                name="CountryScreen"
+                component={CountryScreen}
+                options={{
+                    headerBackTitleVisible: false
+                }}
+            />
+            <HomeStack.Screen
+                name="CountriesListScreen"
+                component={CountriesListScreen}
                 options={{
                     headerBackTitleVisible: false
                 }}
