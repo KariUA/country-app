@@ -55,6 +55,8 @@ const SettingScreen = () => {
             </TouchableOpacity>
           </>
         ) : (
+          //Redirigir a LoginScreen
+          navigation.navigate('LoginScreen'),
           <Text style={styles.text}>Cargando usuario...</Text>
         )}
       </View>

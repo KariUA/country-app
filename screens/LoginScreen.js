@@ -3,6 +3,7 @@ import * as React from "react";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Text, Button,StyleSheet } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -15,19 +16,26 @@ export default function LoginScreen() {
   });
 
   React.useEffect(() => {
-    handleSignInWithGoogle();
+    if (response?.type === "success") {
+      handleSignInWithGoogle();
+    } else {
+      checkLocalUser();
+    }
   }, [response]);
 
-  async function handleSignInWithGoogle() {
+  const checkLocalUser = async () => {
     const user = await getLocalUser();
-    if (!user && response?.type === "success") {
-      const userData = await getUserInfo(response.authentication.accessToken);
-      if (userData) {
-        navigation.navigate('HomeScreen'); // Redirigir al usuario a la pantalla principal
-      }
-    } else {
+    if (user) {
       setUserInfo(user);
-      navigation.navigate('HomeScreen'); //Se redirige a la pantalla principal
+      navigation.navigate('HomeScreen'); // Redirigir al usuario a la pantalla principal
+    }
+  };
+
+  async function handleSignInWithGoogle() {
+    const userData = await getUserInfo(response.authentication.accessToken);
+    if (userData) {
+      setUserInfo(userData);
+      navigation.navigate('HomeScreen'); // Redirigir al usuario a la pantalla principal
     }
   }
 
@@ -62,12 +70,20 @@ export default function LoginScreen() {
     }
   };
 
+  const handleSignOut = async () => {
+    await AsyncStorage.removeItem("@user");
+    setUserInfo(null);
+  };
+
   return (
     <View style={styles.container}>
       {userInfo ? (
         <View>
-          <Text>Welcome {userInfo.name}</Text>
-          <Button title="Sign out" onPress={handleSignOut} />
+          <Text>Are you sure you want to log out?</Text>
+          <View style={styles.buttonContainer}>
+            <Button title="Cancel" onPress={() => navigation.navigate('HomeScreen')} />
+            <Button title="Sign out" onPress={handleSignOut} />
+          </View>
         </View>
       ) : (
         <View>
@@ -76,6 +92,7 @@ export default function LoginScreen() {
       )}
     </View>
   );
+  
 }
 
 const styles = StyleSheet.create({
@@ -83,5 +100,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
   },
 });

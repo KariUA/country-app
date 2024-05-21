@@ -25,7 +25,7 @@ const Tab = createBottomTabNavigator();
 function MyStack() {
     return ( 
         <HomeStack.Navigator
-            initialRouteName="HomeScreen"
+            initialRouteName="LoginScreen"
         
         >
             <HomeStack.Screen
@@ -80,7 +80,7 @@ function MyTabs() {
 
         //Se asigna que la pantalla de inicio sea HomeScreen, se le asigna un icono y un color cuando esta activo
         <Tab.Navigator
-            initialRouteName="Home"
+            initialRouteName="HomeScreen"
             screenOptions={{
                 tabBarActiveTintColor: "purple",
             }}
