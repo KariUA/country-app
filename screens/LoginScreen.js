@@ -2,8 +2,7 @@ import * as WebBrowser from "expo-web-browser";
 import * as React from "react";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Text, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Importar useNavigation
+import { View, Text, Button,StyleSheet } from 'react-native';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -26,8 +25,9 @@ export default function LoginScreen() {
       if (userData) {
         navigation.navigate('HomeScreen'); // Redirigir al usuario a la pantalla principal
       }
-    } else if (user) {
-      navigation.navigate('HomeScreen'); // Redirigir al usuario a la pantalla principal
+    } else {
+      setUserInfo(user);
+      navigation.navigate('HomeScreen'); //Se redirige a la pantalla principal
     }
   }
 
@@ -55,7 +55,7 @@ export default function LoginScreen() {
       const user = await response.json();
       await AsyncStorage.setItem("@user", JSON.stringify(user));
       setUserInfo(user);
-      return user;
+      navigation.navigate('HomeScreen'); //Se redirige a la pantalla principal
     } catch (error) {
       console.log(error);
       return null;
@@ -63,17 +63,11 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={styles.container}>
       {userInfo ? (
         <View>
-          <Text>Gracias por usar COntry-APp {userInfo.name}</Text>
-          <Button
-            title="Sign out"
-            onPress={async () => {
-              await AsyncStorage.removeItem("@user");
-              setUserInfo(null);
-            }}
-          />
+          <Text>Welcome {userInfo.name}</Text>
+          <Button title="Sign out" onPress={handleSignOut} />
         </View>
       ) : (
         <View>
@@ -83,3 +77,11 @@ export default function LoginScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
