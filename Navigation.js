@@ -102,7 +102,7 @@ function MyTabs() {
                 name="Settings"
                 component={SettingScreen}
                 options={{
-                    tabBarLabel: "Settings",
+                    tabBarLabel: "Perfil de usuario",
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="brightness-5" color={color} size={30} />
                     ), 
